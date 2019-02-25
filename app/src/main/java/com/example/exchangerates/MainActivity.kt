@@ -1,17 +1,23 @@
 package com.example.exchangerates
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
+import android.support.design.widget.TabLayout
 import android.support.v4.view.GravityCompat
+import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.example.exchangerates.adapter.FragmentAdapter
+import com.example.exchangerates.mvp.view.MainView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,MainView {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +36,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
-    }
 
+
+
+        val viewPager = findViewById<ViewPager>(R.id.viewPager)
+
+        val adapter = FragmentAdapter(supportFragmentManager, this)
+        viewPager.adapter = adapter
+
+        val mTabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        mTabLayout.tabMode = TabLayout.MODE_SCROLLABLE
+        mTabLayout.setupWithViewPager(viewPager)
+
+    }
+    override fun onSearchFragmentAdapter() {
+
+    }
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
