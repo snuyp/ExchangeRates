@@ -5,4 +5,5 @@ import com.arellomobile.mvp.MvpView
 
 interface MainView : MvpView {
     fun onSearchFragmentAdapter()
+    fun snackBar(isShow : Boolean)
 }

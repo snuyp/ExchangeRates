@@ -10,14 +10,21 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.exchangerates.adapter.FragmentAdapter
+import com.example.exchangerates.mvp.presenter.ConnectivityPresenter
 import com.example.exchangerates.mvp.view.MainView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,MainView {
+class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,MainView {
 
+    @InjectPresenter
+    lateinit var presenter : ConnectivityPresenter
+
+    private lateinit var snackBar: Snackbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +55,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mTabLayout.tabMode = TabLayout.MODE_SCROLLABLE
         mTabLayout.setupWithViewPager(viewPager)
 
+        snackBar = Snackbar.make(viewPager,getString(R.string.check_connection),Snackbar.LENGTH_INDEFINITE)
+
     }
+
     override fun onSearchFragmentAdapter() {
 
     }
@@ -101,5 +111,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+    override fun snackBar(isShow: Boolean) {
+        when (isShow) {
+            true -> snackBar.show()
+            false -> snackBar.dismiss();
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.safelyDispose()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.internetConnectivity()
     }
 }

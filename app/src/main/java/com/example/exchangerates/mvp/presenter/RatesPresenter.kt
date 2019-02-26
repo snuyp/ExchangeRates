@@ -34,8 +34,9 @@ class RatesPresenter : MvpPresenter<MainFragmentView>() {
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {result -> viewState.showRates(result[0])},
-                {error -> viewState.error(error.toString())  }
+                {error -> viewState.error(error.toString())}
             )
+
     }
 
     fun dispose() = disposable.dispose()
