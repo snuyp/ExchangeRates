@@ -5,13 +5,12 @@ import com.example.exchangerates.mvp.model.RateShort
 import com.example.exchangerates.mvp.model.Rates
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
-import io.reactivex.Single
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import javax.inject.Inject
 
 interface RateService {
 
@@ -35,18 +34,5 @@ interface RateService {
     fun getDynamicsRates(@Path("id") curId :Int,
                          @Query("startDate") startDate : String,
                          @Query("endDate") endDate : String) : Observable<List<RateShort>>
-
-
-
-    companion object{
-        internal fun create(): RateService {
-            val retrofit = Retrofit.Builder()
-                .baseUrl("http://www.nbrb.by/API/ExRates/" )
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-            return retrofit.create(RateService::class.java)
-        }
-    }
 
 }

@@ -1,10 +1,10 @@
-package com.example.exchangerates.adapter
+package com.example.exchangerates.ui.adapter
 
 import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.example.exchangerates.fragments.MainFragment
+import com.example.exchangerates.ui.fragments.MainFragment
 
 class FragmentAdapter(fm: FragmentManager?, context: Context?) : FragmentPagerAdapter(fm) {
 

@@ -1,4 +1,4 @@
-package com.example.exchangerates
+package com.example.exchangerates.ui
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -7,12 +7,12 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.example.exchangerates.adapter.FragmentAdapter
+import com.example.exchangerates.R
+import com.example.exchangerates.ui.adapter.FragmentAdapter
 import com.example.exchangerates.mvp.presenter.ConnectivityPresenter
 import com.example.exchangerates.mvp.view.MainView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,7 +37,9 @@ class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSele
         }
 
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this, drawer_layout, toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()

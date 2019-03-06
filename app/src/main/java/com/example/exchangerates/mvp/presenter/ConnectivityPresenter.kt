@@ -7,10 +7,17 @@ import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 @InjectViewState
 class ConnectivityPresenter : MvpPresenter<MainView>() {
+
     lateinit var internetDisposable: Disposable
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+
+    }
 
     fun internetConnectivity()
     {
